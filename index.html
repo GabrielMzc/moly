@@ -39,7 +39,7 @@
       }
     </script>
   </head>
-  <body>
+  <body class="has-mobile-cta">
     <a class="skip-link" href="#conteudo" data-i18n="a11y.skip">Pular para o conteúdo</a>
     <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 
@@ -82,7 +82,7 @@
           <a href="#apartador" data-i18n="nav.sorter">Apartador</a>
           <a href="#ficha-tecnica" data-i18n="nav.specs">Ficha técnica</a>
           <a href="#historias" data-i18n="nav.stories">Depoimentos</a>
-          <a href="trabalhe-conosco.html" data-admin-link="careers" data-i18n="nav.careers">Trabalhe conosco</a>
+          <a href="trabalhe-conosco.html" data-admin-link="careers" data-i18n="nav.careers">Seja um revendedor</a>
         </nav>
 
         <div
@@ -430,6 +430,10 @@
               trifásica, conforme definição do projeto.
             </p>
           </div>
+          <p class="table-scroll-hint">
+            <span aria-hidden="true">↔</span>
+            <span data-i18n="comparison.scrollHint">Deslize para comparar todos os dados</span>
+          </p>
           <div
             class="table-scroll"
             tabindex="0"
@@ -491,12 +495,119 @@
         </div>
       </section>
 
+      <section class="section financing" id="financiamento" aria-labelledby="financing-title">
+        <div class="financing__grid" aria-hidden="true"></div>
+        <div class="shell financing__layout">
+          <div class="financing__intro" data-reveal>
+            <p class="eyebrow eyebrow--light">
+              <span>05</span> <span data-i18n="financing.eyebrow">Crédito rural e investimento</span>
+            </p>
+            <h2 id="financing-title" data-i18n-html="financing.title">
+              Crédito para modernizar.<br /><em>Manejo para avançar.</em>
+            </h2>
+            <p class="lead" data-i18n="financing.lead">
+              A aquisição e a implantação do equipamento podem ser avaliadas em
+              linhas de investimento rural, conforme o perfil do produtor, o
+              projeto técnico e a análise do agente financeiro.
+            </p>
+            <div class="financing__actions">
+              <a class="button" href="#contato" data-financing-interest>
+                <span data-i18n="financing.cta">Quero avaliar possibilidades de crédito</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                class="text-link text-link--light"
+                href="https://www.gov.br/agricultura/pt-br/assuntos/politica-agricola/plano-safra/2026-2027/credito-inovador"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span data-i18n="financing.officialPlan">Ver Plano Safra 2026/27</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="financing__updated" data-i18n="financing.updated">
+              Informações de referência atualizadas para o ciclo 2026/27.
+            </p>
+          </div>
+
+          <div class="financing__panel" data-reveal>
+            <div class="financing__metric">
+              <span data-i18n="financing.metricLabel">Recursos previstos para investimento</span>
+              <strong data-i18n="financing.metricValue">R$ 140,2 bi</strong>
+              <p data-i18n="financing.metricText">
+                no Plano Safra 2026/27, destinados à modernização, inovação e
+                infraestrutura da produção agropecuária.
+              </p>
+            </div>
+
+            <div class="financing__paths" aria-label="Possíveis caminhos de crédito" data-i18n-aria-label="financing.pathsLabel">
+              <article>
+                <span>01</span>
+                <h3 data-i18n="financing.pronafTitle">Pronaf Mais Alimentos</h3>
+                <p data-i18n="financing.pronafText">
+                  Para agricultura familiar, pode apoiar a modernização da
+                  estrutura produtiva quando o item estiver ligado ao projeto.
+                </p>
+              </article>
+              <article>
+                <span>02</span>
+                <h3 data-i18n="financing.pronampTitle">Pronamp e investimento empresarial</h3>
+                <p data-i18n="financing.pronampText">
+                  Caminhos para investimento e modernização de produtores
+                  enquadrados nas regras de cada programa.
+                </p>
+              </article>
+              <article>
+                <span>03</span>
+                <h3 data-i18n="financing.infrastructureTitle">Infraestrutura pecuária</h3>
+                <p data-i18n="financing.infrastructureText">
+                  Bancos também analisam projetos de construção, reforma e
+                  modernização de instalações de manejo animal.
+                </p>
+              </article>
+            </div>
+
+            <aside class="financing__notice">
+              <strong data-i18n="financing.noticeTitle">Importante antes de contratar</strong>
+              <p data-i18n="financing.noticeText">
+                A SILENCER não concede crédito nem garante aprovação. Enquadramento,
+                taxas, prazos, garantias e disponibilidade dependem do produtor,
+                do projeto, da instituição financeira e de eventual exigência de
+                origem ou credenciamento do equipamento.
+              </p>
+            </aside>
+
+            <div class="financing__sources">
+              <span data-i18n="financing.sourcesLabel">Consulte as fontes oficiais</span>
+              <a
+                href="https://www.bndes.gov.br/wps/portal/site/home/financiamento/produto/pronaf-mais-alimentos"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="financing.sourceBndes"
+              >BNDES · Pronaf Mais Alimentos</a>
+              <a
+                href="https://www.gov.br/mda/pt-br/noticias/2026/07/plano-safra-da-agricultura-familiar-2026-2027"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="financing.sourceMda"
+              >MDA · Agricultura Familiar</a>
+              <a
+                href="https://www.caixa.gov.br/agro/investimento/infra-pecuaria/Paginas/default.aspx"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="financing.sourceCaixa"
+              >CAIXA · Infraestrutura Pecuária</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="section apartador" id="apartador" aria-labelledby="apartador-title">
         <div class="apartador__grid" aria-hidden="true"></div>
         <div class="shell apartador__layout">
           <div class="apartador__content" data-reveal>
             <p class="eyebrow">
-              <span>05</span> <span data-i18n="sorter.eyebrow">Complemento da linha</span>
+              <span>06</span> <span data-i18n="sorter.eyebrow">Complemento da linha</span>
             </p>
             <h2 id="apartador-title" data-i18n-html="sorter.title">
               O tronco contém.<br /><em>O apartador direciona.</em>
@@ -550,7 +661,7 @@
         <div class="shell split-heading" data-reveal>
           <div>
             <p class="eyebrow">
-              <span>06</span> <span data-i18n="technical.eyebrow">Ficha técnica / Tronco Pró</span>
+              <span>07</span> <span data-i18n="technical.eyebrow">Ficha técnica / Tronco Pró</span>
             </p>
             <h2 id="ficha-title" data-i18n-html="technical.title">
               Dimensões para<br /><em>planejar a instalação.</em>
@@ -637,7 +748,7 @@
         <div class="shell split-heading split-heading--dark" data-reveal>
           <div>
             <p class="eyebrow eyebrow--light">
-              <span>07</span> <span data-i18n="stories.eyebrow">Experiência em campo</span>
+              <span>08</span> <span data-i18n="stories.eyebrow">Experiência em campo</span>
             </p>
             <h2 id="historias-title" data-i18n-html="stories.title">
               Experiências reais.<br /><em>Confiança construída no manejo.</em>
@@ -725,7 +836,7 @@
         <div class="shell contact__layout">
           <div class="contact__content" data-reveal>
             <p class="eyebrow eyebrow--light">
-              <span>08</span> <span data-i18n="contact.eyebrow">Projeto sob medida</span>
+              <span>09</span> <span data-i18n="contact.eyebrow">Projeto sob medida</span>
             </p>
             <h2 id="contato-title" data-i18n-html="contact.title">
               Vamos desenhar o tronco certo para <em>a sua operação.</em>
@@ -911,7 +1022,7 @@
         <p data-i18n="footer.tagline">
           Engenharia para um manejo mais seguro, preciso e contínuo.
         </p>
-        <a class="footer-careers" href="trabalhe-conosco.html" data-admin-link="careers" data-i18n="nav.careers">Trabalhe conosco</a>
+        <a class="footer-careers" href="trabalhe-conosco.html" data-admin-link="careers" data-i18n="nav.careers">Seja um revendedor</a>
         <p>© <span data-current-year>2026</span> SILENCER® · Moly Manufacturing.</p>
       </div>
     </footer>

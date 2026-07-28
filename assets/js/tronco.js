@@ -31,6 +31,7 @@
     menuToggle.setAttribute("aria-expanded", "false");
     menuToggle.querySelector("[data-menu-label]").textContent = t("a11y.openMenu");
     document.body.classList.remove("menu-open");
+    root.classList.remove("menu-open");
   };
 
   menuToggle?.addEventListener("click", () => {
@@ -41,6 +42,7 @@
       : t("a11y.openMenu");
     menu?.classList.toggle("is-open", willOpen);
     document.body.classList.toggle("menu-open", willOpen);
+    root.classList.toggle("menu-open", willOpen);
   });
 
   menu?.addEventListener("click", (event) => {
@@ -54,7 +56,7 @@
   window.addEventListener(
     "resize",
     () => {
-      if (window.innerWidth > 820) closeMenu();
+      if (window.innerWidth > 960) closeMenu();
     },
     { passive: true },
   );
@@ -121,11 +123,16 @@
   const mobileProjectCta = document.querySelector(".mobile-project-cta");
   const heroSection = document.querySelector(".hero");
   const promoSection = document.querySelector("#video-promocional");
+  const contactSection = document.querySelector("#contato");
   if (mobileProjectCta && heroSection && "IntersectionObserver" in window) {
     let heroVisible = true;
     let promoVisible = false;
+    let contactVisible = false;
     const updateMobileCta = () =>
-      mobileProjectCta.classList.toggle("is-visible", !heroVisible && !promoVisible);
+      mobileProjectCta.classList.toggle(
+        "is-visible",
+        !heroVisible && !promoVisible && !contactVisible,
+      );
 
     const mobileCtaObserver = new IntersectionObserver(
       ([entry]) => {
@@ -146,6 +153,17 @@
       );
       promoCtaObserver.observe(promoSection);
     }
+
+    if (contactSection) {
+      const contactCtaObserver = new IntersectionObserver(
+        ([entry]) => {
+          contactVisible = entry.isIntersecting;
+          updateMobileCta();
+        },
+        { threshold: 0.03 },
+      );
+      contactCtaObserver.observe(contactSection);
+    }
   }
 
   const projectForm = document.querySelector("[data-project-form]");
@@ -160,6 +178,17 @@
       if (!modelSelect) return;
       modelSelect.value = link.dataset.modelChoice;
       modelSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  });
+
+  document.querySelectorAll("[data-financing-interest]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const details = projectForm?.querySelector(".project-form__more");
+      const message = projectForm?.querySelector("[name='mensagem']");
+      if (details) details.open = true;
+      if (!message || message.value.trim()) return;
+      message.value = t("financing.formNote");
+      message.dispatchEvent(new Event("input", { bubbles: true }));
     });
   });
 

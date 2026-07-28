@@ -52,6 +52,16 @@
       ],
     },
     {
+      title: "Crédito rural",
+      note: "Mensagem responsável sobre possibilidades de financiamento e análise bancária.",
+      fields: [
+        { key: "financing.title", label: "Título da seção", rich: true, wide: true },
+        { key: "financing.lead", label: "Introdução", long: true, wide: true },
+        { key: "financing.metricText", label: "Contexto do Plano Safra", long: true, wide: true },
+        { key: "financing.noticeText", label: "Aviso de elegibilidade", long: true, wide: true },
+      ],
+    },
+    {
       title: "Apartador",
       note: "Apresentação comercial do módulo de direcionamento.",
       fields: [
@@ -100,8 +110,8 @@
       ],
     },
     {
-      title: "Trabalhe conosco",
-      note: "Conteúdo principal da página de representantes e distribuidores.",
+      title: "Rede de revendedores",
+      note: "Conteúdo comercial para representantes, revendedores e distribuidores.",
       fields: [
         { key: "careers.title", label: "Título de abertura", rich: true, wide: true },
         { key: "careers.lead", label: "Texto de abertura", long: true, wide: true },
