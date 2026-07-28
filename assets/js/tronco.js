@@ -120,12 +120,32 @@
 
   const mobileProjectCta = document.querySelector(".mobile-project-cta");
   const heroSection = document.querySelector(".hero");
+  const promoSection = document.querySelector("#video-promocional");
   if (mobileProjectCta && heroSection && "IntersectionObserver" in window) {
+    let heroVisible = true;
+    let promoVisible = false;
+    const updateMobileCta = () =>
+      mobileProjectCta.classList.toggle("is-visible", !heroVisible && !promoVisible);
+
     const mobileCtaObserver = new IntersectionObserver(
-      ([entry]) => mobileProjectCta.classList.toggle("is-visible", !entry.isIntersecting),
+      ([entry]) => {
+        heroVisible = entry.isIntersecting;
+        updateMobileCta();
+      },
       { threshold: 0.08 },
     );
     mobileCtaObserver.observe(heroSection);
+
+    if (promoSection) {
+      const promoCtaObserver = new IntersectionObserver(
+        ([entry]) => {
+          promoVisible = entry.isIntersecting;
+          updateMobileCta();
+        },
+        { threshold: 0.05 },
+      );
+      promoCtaObserver.observe(promoSection);
+    }
   }
 
   const projectForm = document.querySelector("[data-project-form]");
@@ -140,6 +160,15 @@
       if (!modelSelect) return;
       modelSelect.value = link.dataset.modelChoice;
       modelSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  });
+
+  document.querySelectorAll("[data-partner-choice]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const profileSelect = projectForm?.querySelector("[name='perfil']");
+      if (!profileSelect) return;
+      profileSelect.value = link.dataset.partnerChoice;
+      profileSelect.dispatchEvent(new Event("change", { bubbles: true }));
     });
   });
 
@@ -179,7 +208,10 @@
     }
 
     formStatus.classList.remove("is-error");
-    formStatus.textContent = t("form.readyMessage");
+    formStatus.textContent =
+      document.documentElement.dataset.page === "careers"
+        ? t("careers.readyMessage")
+        : t("form.readyMessage");
   });
 
   window.addEventListener("moly:localechange", () => {
@@ -189,19 +221,159 @@
     }
   });
 
+  const alignHashTarget = () => {
+    if (window.__MOLY_PAGE_RELOAD__ || !window.location.hash) return;
+    const target = document.querySelector(window.location.hash);
+    target?.scrollIntoView({ block: "start" });
+  };
+
+  const productTilt = document.querySelector("[data-product-tilt]");
+  const productFrame = productTilt?.closest(".hero-product");
+  if (productTilt && productFrame && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    productFrame.addEventListener("pointermove", (event) => {
+      const bounds = productFrame.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      productTilt.style.setProperty("--tilt-x", `${2 - y * 5}deg`);
+      productTilt.style.setProperty("--tilt-y", `${-7 + x * 8}deg`);
+    });
+    productFrame.addEventListener("pointerleave", () => {
+      productTilt.style.removeProperty("--tilt-x");
+      productTilt.style.removeProperty("--tilt-y");
+    });
+  }
+
   const drawingDialog = document.querySelector("[data-drawing-dialog]");
-  document.querySelector("[data-drawing-open]")?.addEventListener("click", () => {
-    drawingDialog?.showModal();
+  const drawingOpen = document.querySelector("[data-drawing-open]");
+  const drawingClose = document.querySelector("[data-drawing-close]");
+
+  drawingOpen?.addEventListener("click", () => {
+    if (typeof drawingDialog?.showModal === "function") {
+      drawingDialog.showModal();
+      drawingClose?.focus();
+    }
   });
-  document.querySelector("[data-drawing-close]")?.addEventListener("click", () => {
-    drawingDialog?.close();
-  });
+  drawingClose?.addEventListener("click", () => drawingDialog?.close());
   drawingDialog?.addEventListener("click", (event) => {
     if (event.target === drawingDialog) drawingDialog.close();
   });
 
+  const videoDialog = document.querySelector("[data-video-dialog]");
+  const videoFrame = videoDialog?.querySelector("[data-video-iframe]");
+  const videoNative = videoDialog?.querySelector("[data-video-native]");
+  const videoStage = videoDialog?.querySelector("[data-video-stage]");
+  const videoTitle = videoDialog?.querySelector("[data-video-dialog-title]");
+  const videoFallback = videoDialog?.querySelector("[data-video-fallback]");
+  const videoClose = videoDialog?.querySelector("[data-video-close]");
+  let activeVideoTitleKey = "";
+
+  const getDirectVideoUrl = (rawUrl) => {
+    if (!rawUrl) return "";
+    try {
+      const url = new URL(rawUrl, window.location.href);
+      return /\.(mp4|webm)$/i.test(url.pathname) ? url.href : "";
+    } catch {
+      return "";
+    }
+  };
+
+  const getVimeoEmbedUrl = (rawUrl) => {
+    if (!rawUrl) return "";
+    try {
+      const url = new URL(rawUrl, window.location.href);
+      if (url.hostname.endsWith("vimeo.com") && url.pathname.startsWith("/reviews/")) {
+        return "";
+      }
+      const match =
+        url.pathname.match(/\/videos?\/(\d+)(?:\/|$)/i) ||
+        url.pathname.match(/\/(\d+)(?:\/|$)/);
+      if (!match) return "";
+      const params = new URLSearchParams({
+        autoplay: "1",
+        title: "0",
+        byline: "0",
+        portrait: "0",
+        color: "f5bd18",
+      });
+      const privateHash = url.searchParams.get("h");
+      if (privateHash) params.set("h", privateHash);
+      return `https://player.vimeo.com/video/${match[1]}?${params}`;
+    } catch {
+      return "";
+    }
+  };
+
+  const closeVideo = () => {
+    if (videoFrame) videoFrame.src = "about:blank";
+    if (videoNative) {
+      videoNative.pause();
+      videoNative.removeAttribute("src");
+      videoNative.load();
+    }
+    videoDialog?.close();
+  };
+
+  document.querySelectorAll("[data-video-open]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const rawUrl = trigger.dataset.videoUrl;
+      const directUrl = getDirectVideoUrl(rawUrl);
+      const embedUrl = getVimeoEmbedUrl(rawUrl);
+      if ((!directUrl && !embedUrl) || typeof videoDialog?.showModal !== "function") {
+        if (rawUrl) window.open(rawUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      activeVideoTitleKey = trigger.dataset.videoTitleKey || "";
+      if (videoTitle) videoTitle.textContent = t(activeVideoTitleKey);
+      if (videoFallback) videoFallback.href = rawUrl;
+      videoStage?.classList.toggle("is-portrait", trigger.dataset.videoOrientation === "portrait");
+
+      if (directUrl) {
+        if (videoFrame) {
+          videoFrame.hidden = true;
+          videoFrame.src = "about:blank";
+        }
+        if (videoNative) {
+          videoNative.hidden = false;
+          videoNative.src = directUrl;
+          videoNative.load();
+        }
+      } else {
+        if (videoNative) {
+          videoNative.hidden = true;
+          videoNative.removeAttribute("src");
+        }
+        if (videoFrame) {
+          videoFrame.hidden = false;
+          videoFrame.src = embedUrl;
+        }
+      }
+
+      videoDialog.showModal();
+      if (directUrl) videoNative?.play().catch(() => {});
+      videoClose?.focus();
+    });
+  });
+
+  videoClose?.addEventListener("click", closeVideo);
+  videoDialog?.addEventListener("click", (event) => {
+    if (event.target === videoDialog) closeVideo();
+  });
+  videoDialog?.addEventListener("close", () => {
+    if (videoFrame) videoFrame.src = "about:blank";
+    if (videoNative) {
+      videoNative.pause();
+      videoNative.removeAttribute("src");
+      videoNative.load();
+    }
+  });
+  window.addEventListener("moly:localechange", () => {
+    if (videoTitle && activeVideoTitleKey) videoTitle.textContent = t(activeVideoTitleKey);
+  });
+
   if (reduceMotion || !window.gsap || !window.ScrollTrigger) {
     setCountersToFinalValue();
+    window.addEventListener("load", alignHashTarget, { once: true });
     return;
   }
 
@@ -217,12 +389,12 @@
     .from(".hero__actions", { y: 22, autoAlpha: 0, duration: 0.55 }, "-=0.4")
     .from(".hero__proofs li", { y: 12, autoAlpha: 0, stagger: 0.08, duration: 0.4 }, "-=0.3")
     .from(
-      ".hero-product > img",
+      ".hero-product__stage > img",
       { x: 60, scale: 0.94, autoAlpha: 0, duration: 1.05 },
       0.15,
     )
     .from(
-      ".hero-product__measure, .hero-product figcaption",
+      ".hero-product figcaption",
       { autoAlpha: 0, duration: 0.55, stagger: 0.1 },
       0.72,
     )
@@ -256,38 +428,6 @@
         once: true,
       },
     });
-  }
-
-  const doorStage = document.querySelector("[data-door-stage]");
-  if (doorStage) {
-    gsap.fromTo(
-      ".door--left",
-      { xPercent: 0 },
-      {
-        xPercent: -94,
-        ease: "power3.inOut",
-        scrollTrigger: {
-          trigger: doorStage,
-          start: "top 72%",
-          end: "top 30%",
-          scrub: 0.8,
-        },
-      },
-    );
-    gsap.fromTo(
-      ".door--right",
-      { xPercent: 0 },
-      {
-        xPercent: 94,
-        ease: "power3.inOut",
-        scrollTrigger: {
-          trigger: doorStage,
-          start: "top 72%",
-          end: "top 30%",
-          scrub: 0.8,
-        },
-      },
-    );
   }
 
   counters.forEach((counter) => {
@@ -334,5 +474,13 @@
   });
 
   ScrollTrigger.addEventListener("refresh", updateScrollProgress);
-  window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+  window.addEventListener(
+    "load",
+    () => {
+      alignHashTarget();
+      ScrollTrigger.refresh();
+      ScrollTrigger.update();
+    },
+    { once: true },
+  );
 })();

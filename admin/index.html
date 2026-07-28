@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR" data-page="admin">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#101b3b" />
+    <title>Administração | SILENCER Brasil</title>
+    <link rel="icon" type="image/webp" href="/assets/img/brand/silencer-logo.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <aside class="admin-sidebar">
+        <a class="admin-brand" href="/" aria-label="Abrir site SILENCER">
+          <img src="/assets/img/brand/silencer-logo.webp" width="900" height="386" alt="" />
+          <span><strong>SILENCER®</strong><small>CONTENT DESK</small></span>
+        </a>
+
+        <div class="admin-sidebar__context">
+          <span>AMBIENTE</span>
+          <strong>Conteúdo do site</strong>
+          <p>Textos e links publicados para os três idiomas.</p>
+        </div>
+
+        <nav aria-label="Atalhos administrativos">
+          <a href="#conteudo-editorial">Conteúdo editorial</a>
+          <a href="#links-gerenciados">Links gerenciados</a>
+          <a href="/" target="_blank" rel="noopener">Visualizar site ↗</a>
+        </nav>
+
+        <p class="admin-sidebar__security">
+          <span aria-hidden="true">●</span>
+          Homologação local neste navegador.
+        </p>
+      </aside>
+
+      <main class="admin-main">
+        <section class="login-panel" data-login-view>
+          <div class="login-panel__mark">
+            <div class="login-panel__mark-header">
+              <span>EDITORIAL SYSTEM</span>
+              <small>BR / 01</small>
+            </div>
+            <div class="login-panel__mark-copy">
+              <p>Central de conteúdo</p>
+              <strong>Uma única fonte para manter a comunicação SILENCER consistente.</strong>
+            </div>
+            <div class="login-panel__capabilities" aria-label="Recursos disponíveis no painel">
+              <span><b>01</b> Textos em três idiomas</span>
+              <span><b>02</b> Links comerciais e vídeos</span>
+              <span><b>03</b> Pré-visualização imediata</span>
+            </div>
+            <span class="login-panel__watermark" aria-hidden="true">CONTROL</span>
+          </div>
+          <div class="login-panel__content">
+            <div class="login-panel__heading">
+              <p class="admin-kicker">Acesso restrito · SILENCER Brasil</p>
+              <h1>Acesse o painel<br /><em>editorial.</em></h1>
+              <p>Gerencie textos, idiomas e destinos comerciais sem editar os arquivos do site.</p>
+            </div>
+
+            <div class="login-panel__assurance">
+              <span aria-hidden="true">✓</span>
+              <div>
+                <strong>Ambiente local de homologação</strong>
+                <p>As alterações ficam somente neste navegador até a integração com o banco de dados.</p>
+              </div>
+            </div>
+
+            <form data-login-form>
+              <label for="admin-password">
+                <span>Senha administrativa</span>
+                <small>Credencial temporária</small>
+              </label>
+              <div class="password-field">
+                <input
+                  id="admin-password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Digite sua senha"
+                  aria-describedby="login-status"
+                  required
+                />
+                <button type="button" data-toggle-password aria-label="Mostrar senha">Mostrar</button>
+              </div>
+              <p class="admin-status" id="login-status" data-login-status aria-live="polite"></p>
+              <button class="admin-button admin-button--primary" type="submit">
+                Entrar no painel <span aria-hidden="true">→</span>
+              </button>
+            </form>
+
+            <a class="login-panel__back" href="/">
+              <span aria-hidden="true">←</span> Voltar para o site
+            </a>
+          </div>
+        </section>
+
+        <section class="admin-workspace" data-workspace hidden>
+          <header class="admin-topbar">
+            <div>
+              <p class="admin-kicker">Painel editorial</p>
+              <h1>Conteúdo do site</h1>
+            </div>
+            <div class="admin-topbar__actions">
+              <span class="save-state" data-save-state>Sem alterações</span>
+              <button class="admin-button admin-button--ghost" type="button" data-logout>Sair</button>
+              <button class="admin-button admin-button--primary" type="button" data-save>
+                Publicar alterações <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </header>
+
+          <div class="storage-notice" data-storage-notice hidden>
+            <div>
+              <strong>Modo de teste local</strong>
+              <p>Os textos ficam salvos somente neste navegador e não são compartilhados com outros visitantes.</p>
+            </div>
+            <a href="#configuracao">Como funciona</a>
+          </div>
+
+          <form class="editor-form" data-editor-form>
+            <section class="editor-intro" id="conteudo-editorial">
+              <div>
+                <p class="admin-kicker">01 / Conteúdo editorial</p>
+                <h2>Edite uma língua<br /><em>de cada vez.</em></h2>
+              </div>
+              <p>
+                O destaque entre asteriscos aparece em amarelo no site.
+                Uma quebra de linha no campo de título cria uma nova linha na página.
+              </p>
+            </section>
+
+            <div class="locale-tabs" role="tablist" aria-label="Idioma do conteúdo">
+              <button type="button" role="tab" aria-selected="true" data-admin-locale="pt-BR">
+                <img src="/assets/img/flags/br.svg" width="24" height="16" alt="" /> Português
+              </button>
+              <button type="button" role="tab" aria-selected="false" data-admin-locale="en">
+                <img src="/assets/img/flags/us.svg" width="24" height="16" alt="" /> English
+              </button>
+              <button type="button" role="tab" aria-selected="false" data-admin-locale="es">
+                <img src="/assets/img/flags/es.svg" width="24" height="16" alt="" /> Español
+              </button>
+            </div>
+
+            <div class="editor-sections" data-fields></div>
+
+            <section class="managed-links" id="links-gerenciados">
+              <div class="managed-links__heading">
+                <div>
+                  <p class="admin-kicker">02 / Links gerenciados</p>
+                  <h2>Vídeos e conversão</h2>
+                </div>
+                <p>Atualize os destinos sem procurar os links dentro do HTML.</p>
+              </div>
+
+              <div class="managed-links__grid">
+                <label>
+                  <span>Vídeo promocional</span>
+                  <small>MP4/WebM toca no site; review abre no Vimeo; link incorporável abre no modal</small>
+                  <input type="text" data-link-field="promoVideo" required />
+                </label>
+                <label>
+                  <span>Depoimento principal</span>
+                  <small>MP4/WebM toca no site; review abre no Vimeo; link incorporável abre no modal</small>
+                  <input type="text" data-link-field="testimonialVideo" required />
+                </label>
+                <label>
+                  <span>Página Trabalhe conosco</span>
+                  <small>Caminho interno ou endereço completo</small>
+                  <input type="text" data-link-field="careers" required />
+                </label>
+              </div>
+            </section>
+
+            <section class="admin-setup" id="configuracao">
+              <span>CONFIG</span>
+              <div>
+                <h2>Persistência nesta fase</h2>
+                <p>
+                  A sessão de acesso fica no <code>sessionStorage</code> e termina ao fechar a sessão do
+                  navegador. Os textos são gravados em <code>localStorage</code>. Para produção, esta camada
+                  deve ser substituída por autenticação e banco no servidor.
+                </p>
+              </div>
+            </section>
+
+            <footer class="editor-footer">
+              <div>
+                <strong data-footer-state>Nenhuma alteração pendente</strong>
+                <small data-updated-at>Conteúdo padrão do projeto</small>
+              </div>
+              <button class="admin-button admin-button--ghost" type="button" data-reset>
+                Restaurar textos desta versão
+              </button>
+              <button class="admin-button admin-button--primary" type="submit">
+                Publicar alterações <span aria-hidden="true">↗</span>
+              </button>
+            </footer>
+
+            <p class="admin-status admin-status--workspace" data-workspace-status aria-live="polite"></p>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script defer src="/assets/js/tronco-i18n.js"></script>
+    <script defer src="/admin/admin.js"></script>
+  </body>
+</html>

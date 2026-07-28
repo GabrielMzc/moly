@@ -1,0 +1,9 @@
+{
+  "name": "silencer-brasil",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "check": "node --check assets/js/tronco-i18n.js && node --check assets/js/tronco.js && node --check assets/js/admin-content.js && node --check admin/admin.js"
+  }
+}
