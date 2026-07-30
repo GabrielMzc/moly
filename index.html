@@ -851,6 +851,28 @@
               <li><span>02</span><b data-i18n="contact.step2">Receba uma recomendação</b></li>
               <li><span>03</span><b data-i18n="contact.step3">Valide o projeto técnico</b></li>
             </ul>
+
+            <aside class="contact-channels" aria-label="Canais de atendimento" data-i18n-aria-label="contact.channelsLabel">
+              <p data-i18n="contact.channelsLabel">Canais de atendimento</p>
+              <dl>
+                <div>
+                  <dt data-i18n="contact.phone">WhatsApp</dt>
+                  <dd data-i18n="contact.whatsappPending">+55 (16) · número em definição</dd>
+                </div>
+                <div>
+                  <dt data-i18n="contact.email">E-mail</dt>
+                  <dd><a href="mailto:adm@molymfg.com.br">adm@molymfg.com.br</a></dd>
+                </div>
+                <div>
+                  <dt data-i18n="contact.budgetEmail">Orçamentos</dt>
+                  <dd><a href="mailto:comercial@molymfg.com.br">comercial@molymfg.com.br</a></dd>
+                </div>
+                <div>
+                  <dt data-i18n="contact.city">Cidade</dt>
+                  <dd>Cravinhos–SP</dd>
+                </div>
+              </dl>
+            </aside>
           </div>
 
           <form class="project-form" data-project-form novalidate data-reveal>
@@ -862,7 +884,7 @@
               <span class="project-form__time" data-i18n="form.time">≈ 1 min</span>
             </div>
 
-            <!-- TODO: definir endpoint oficial no atributo action antes de publicar o envio real. -->
+            <!-- Fase estática: os dados são preparados no aplicativo de e-mail do visitante. -->
             <div class="field field--hidden" aria-hidden="true">
               <label for="website">Website</label>
               <input id="website" name="website" tabindex="-1" autocomplete="off" />
@@ -916,6 +938,11 @@
                 Concordo com o uso dos dados para retorno sobre esta solicitação.
               </span>
             </label>
+
+            <p class="project-form__destination">
+              <span data-i18n="form.destination">O pedido será preparado para</span>
+              <a href="mailto:comercial@molymfg.com.br">comercial@molymfg.com.br</a>
+            </p>
 
             <div class="project-form__footer">
               <p class="form-status" aria-live="polite" data-form-status></p>

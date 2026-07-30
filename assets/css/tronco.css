@@ -1509,8 +1509,8 @@
 
   .financing__metric {
     display: grid;
-    grid-template-columns: minmax(215px, 0.82fr) minmax(230px, 1.18fr);
-    align-items: end;
+    grid-template-columns: 1fr;
+    align-items: start;
     gap: 0.35rem 2rem;
     padding: clamp(1.7rem, 3vw, 2.7rem);
     border-bottom: 1px solid var(--line);
@@ -1531,16 +1531,6 @@
     font-size: clamp(2.35rem, 3.5vw, 3.55rem);
     letter-spacing: -0.045em;
     line-height: 0.9;
-    white-space: nowrap;
-  }
-
-  html[lang="es"] .financing__metric {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  html[lang="es"] .financing__metric strong {
-    font-size: clamp(2.25rem, 3.2vw, 3.15rem);
     white-space: normal;
   }
 
@@ -2955,6 +2945,57 @@
     font-weight: 600;
   }
 
+  .contact-channels {
+    margin-top: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 3px solid var(--yellow-500);
+    padding: 1.15rem;
+    background: rgba(9, 18, 39, 0.34);
+  }
+
+  .contact-channels > p {
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .contact-channels dl {
+    display: grid;
+    gap: 0;
+    margin: 0.7rem 0 0;
+  }
+
+  .contact-channels dl > div {
+    display: grid;
+    grid-template-columns: 94px minmax(0, 1fr);
+    gap: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-block: 0.65rem;
+  }
+
+  .contact-channels dt {
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .contact-channels dd {
+    min-width: 0;
+    color: var(--white);
+    font-size: 0.74rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-channels a {
+    border-bottom: 1px solid rgba(245, 189, 24, 0.5);
+    padding-bottom: 0.12rem;
+  }
+
   .project-form {
     color: var(--ink);
     background: var(--paper);
@@ -3112,6 +3153,25 @@
 
   .consent.is-invalid {
     color: #8d2222;
+  }
+
+  .project-form__destination {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.45rem;
+    margin-top: 1rem;
+    border-left: 3px solid var(--yellow-500);
+    padding: 0.65rem 0.8rem;
+    color: var(--ink-soft);
+    background: rgba(245, 189, 24, 0.08);
+    font-size: 0.68rem;
+  }
+
+  .project-form__destination a {
+    color: var(--navy-900);
+    font-weight: 700;
+    overflow-wrap: anywhere;
   }
 
   .project-form__footer {

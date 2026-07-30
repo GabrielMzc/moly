@@ -207,6 +207,44 @@
     return valid;
   };
 
+  const prepareEmailSubmission = () => {
+    const careersPage = document.documentElement.dataset.page === "careers";
+    const recipient = careersPage ? "adm@molymfg.com.br" : "comercial@molymfg.com.br";
+    const subject = t(careersPage ? "careers.emailSubject" : "form.emailSubject");
+    const intro = t(careersPage ? "careers.emailIntro" : "form.emailIntro");
+    const formLines = [...projectForm.elements]
+      .filter(
+        (field) =>
+          field.name &&
+          !["website", "consentimento"].includes(field.name) &&
+          typeof field.value === "string" &&
+          field.value.trim(),
+      )
+      .map((field) => {
+        const label =
+          field.closest(".field")?.querySelector("label")?.textContent.trim() || field.name;
+        const value =
+          field instanceof HTMLSelectElement
+            ? field.options[field.selectedIndex]?.textContent.trim()
+            : field.value.trim();
+        return `${label}: ${value}`;
+      });
+    const body = [
+      intro,
+      "",
+      ...formLines,
+      "",
+      `${t("form.emailSource")}: ${window.location.href}`,
+    ].join("\n");
+    const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    formStatus.classList.remove("is-error");
+    formStatus.textContent = t(careersPage ? "careers.readyMessage" : "form.readyMessage");
+    window.setTimeout(() => {
+      window.location.href = mailto;
+    }, 120);
+  };
+
   formFields.forEach((field) => {
     field.addEventListener("input", () => {
       updateFieldState(field);
@@ -236,11 +274,7 @@
       return;
     }
 
-    formStatus.classList.remove("is-error");
-    formStatus.textContent =
-      document.documentElement.dataset.page === "careers"
-        ? t("careers.readyMessage")
-        : t("form.readyMessage");
+    prepareEmailSubmission();
   });
 
   window.addEventListener("moly:localechange", () => {
