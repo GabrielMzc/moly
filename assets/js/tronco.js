@@ -160,7 +160,7 @@
           contactVisible = entry.isIntersecting;
           updateMobileCta();
         },
-        { threshold: 0.03 },
+        { threshold: 0, rootMargin: "0px 0px -82% 0px" },
       );
       contactCtaObserver.observe(contactSection);
     }
